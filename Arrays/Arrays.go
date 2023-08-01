@@ -116,7 +116,7 @@ func TransposeMatrix(matrix [][]int) [][]int {
 	for i := 0; i < len(matrix[0]); i++ {
 		newMatrix[i] = make([]int, len(matrix))
 		for j := 0; j < len(matrix); j++ {
-			//fill the first row in the new matrix with the first column in the old matrix etc,
+			//fill the first row in the new array with the first column in the old matrix etc,
 			newMatrix[i][j] = matrix[j][i]
 		}
 	}
