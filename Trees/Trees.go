@@ -64,17 +64,17 @@ func CalculateBranchSums(node *BinaryTree, runningSum int, sums *[]int) {
 func NodeDepths(root *BinaryTree) int {
 	// Write your code here.
 	sumOfNodeDepths := 0
-	currentDepth := 0
+	currentNodeDepth := 0
 
-	SumNodeDepths(root, currentDepth, &sumOfNodeDepths)
+	SumNodeDepths(root, currentNodeDepth, &sumOfNodeDepths)
 	return sumOfNodeDepths
 }
 
-func SumNodeDepths(node *BinaryTree, currentDepth int, sumOfNodeDepths *int) {
+func SumNodeDepths(node *BinaryTree, currentNodeDepth int, sumOfNodeDepths *int) {
 	if node == nil {
 		return
 	}
-	*sumOfNodeDepths += currentDepth
-	SumNodeDepths(node.Left, currentDepth+1, sumOfNodeDepths)
-	SumNodeDepths(node.Right, currentDepth+1, sumOfNodeDepths)
+	*sumOfNodeDepths += currentNodeDepth
+	SumNodeDepths(node.Left, currentNodeDepth+1, sumOfNodeDepths)
+	SumNodeDepths(node.Right, currentNodeDepth+1, sumOfNodeDepths)
 }
