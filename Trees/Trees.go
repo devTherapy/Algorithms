@@ -116,3 +116,23 @@ func NodeDepths_Iterative(root *BinaryTree) int {
 	}
 	return sumOfNodeDepths
 }
+
+func EvaluateExpressionTree(tree *BinaryTree) int {
+	if tree.Value > 0 {
+		return tree.Value
+	}
+
+	leftValue := EvaluateExpressionTree(tree.Left)
+	rightValue := EvaluateExpressionTree(tree.Right)
+
+	switch tree.Value {
+	case -1:
+		return leftValue + rightValue
+	case -2:
+		return leftValue - rightValue
+	case -3:
+		return leftValue / rightValue
+	default:
+		return leftValue * rightValue
+	}
+}
