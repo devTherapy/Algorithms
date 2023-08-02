@@ -61,6 +61,7 @@ func CalculateBranchSums(node *BinaryTree, runningSum int, sums *[]int) {
 
 }
 
+// recursion solution
 func NodeDepths(root *BinaryTree) int {
 	// Write your code here.
 	sumOfNodeDepths := 0
@@ -77,4 +78,41 @@ func SumNodeDepths(node *BinaryTree, currentNodeDepth int, sumOfNodeDepths *int)
 	*sumOfNodeDepths += currentNodeDepth
 	SumNodeDepths(node.Left, currentNodeDepth+1, sumOfNodeDepths)
 	SumNodeDepths(node.Right, currentNodeDepth+1, sumOfNodeDepths)
+}
+
+// iterative solution
+func NodeDepths_Iterative(root *BinaryTree) int {
+	sumOfNodeDepths := 0
+
+	stack := []struct {
+		node  *BinaryTree
+		depth int
+	}{}
+
+	stack = append(stack, struct {
+		node  *BinaryTree
+		depth int
+	}{root, 0})
+
+	for len(stack) > 0 {
+		item := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		node := item.node
+		depth := item.depth
+		sumOfNodeDepths += depth
+		if node.Left != nil {
+			stack = append(stack, struct {
+				node  *BinaryTree
+				depth int
+			}{node.Left, depth + 1})
+		}
+
+		if node.Right != nil {
+			stack = append(stack, struct {
+				node  *BinaryTree
+				depth int
+			}{node.Right, depth + 1})
+		}
+	}
+	return sumOfNodeDepths
 }
