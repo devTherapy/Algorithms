@@ -138,3 +138,49 @@ func NonConstructibleChange(coins []int) int {
 	}
 	return change + 1
 }
+
+// "queries": [3, 2, 1, 2, 6]
+func MinimumWaitingTimes(queries []int) int {
+
+	sort.Ints(queries)
+	totalWaitingTime := 0
+
+	for i, duration := range queries {
+		queriesLeft := len(queries) - (i + 1)
+		totalWaitingTime += queriesLeft * duration
+	}
+	return totalWaitingTime
+}
+
+func ClassPhotos(redShirtHeights []int, blueShirtHeights []int) bool {
+	// Write your code here.
+
+	sort.Ints(redShirtHeights)
+	sort.Ints(blueShirtHeights)
+	redIsBackRow := redShirtHeights[len(redShirtHeights)-1] > blueShirtHeights[len(blueShirtHeights)-1]
+	for i := range redShirtHeights {
+		if redIsBackRow && redShirtHeights[i] <= blueShirtHeights[i] {
+			return false
+		} else if !redIsBackRow && blueShirtHeights[i] <= redShirtHeights[i] {
+			return false
+		}
+	}
+	return true
+}
+
+func TandemBicycle(redShirtSpeeds []int, blueShirtSpeeds []int, fastest bool) int {
+	// Write your code here.
+	sort.Ints(blueShirtSpeeds)
+	sort.Ints(redShirtSpeeds)
+	totalSpeed := 0
+
+	for i := range redShirtSpeeds {
+		j := i
+		if fastest {
+			// point to the last speed in the redshirt speeds
+			j = len(redShirtSpeeds) - 1 - i
+		}
+		totalSpeed += int(math.Max(float64(blueShirtSpeeds[i]), float64(redShirtSpeeds[j])))
+	}
+	return totalSpeed
+}
