@@ -184,3 +184,30 @@ func TandemBicycle(redShirtSpeeds []int, blueShirtSpeeds []int, fastest bool) in
 	}
 	return totalSpeed
 }
+
+func OptimalFreelancing(jobs []map[string]int) int {
+	// Write your code here.
+	profitsTaken := make([]int, 7)
+
+	for i := range jobs {
+		deadline := jobs[i]["deadline"]
+		if deadline > 7 {
+			deadline = 7
+		}
+		currentPayment := jobs[i]["payment"]
+
+		for j := deadline - 1; j >= 0; j-- {
+			if profitsTaken[j] < currentPayment && currentPayment != 0 {
+				temp := profitsTaken[j]
+				profitsTaken[j] = currentPayment
+				currentPayment = temp
+			}
+		}
+	}
+
+	sum := 0
+	for i := range profitsTaken {
+		sum += i
+	}
+	return sum
+}
