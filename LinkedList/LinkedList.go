@@ -31,5 +31,5 @@ func MiddleNode(linkedList *LinkedList) *LinkedList {
 		switcher = !switcher
 		fastPointer = fastPointer.Next
 	}
-	return linkedList
+	return slowPointer
 }
