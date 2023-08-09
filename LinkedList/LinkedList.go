@@ -18,3 +18,18 @@ func RemoveDuplicatesFromLinkedList(linkedList *LinkedList) *LinkedList {
 	}
 	return linkedList
 }
+
+func MiddleNode(linkedList *LinkedList) *LinkedList {
+	// Write your code here.
+	fastPointer, slowPointer := linkedList, linkedList
+	switcher := false
+	for fastPointer.Next != nil {
+
+		if switcher {
+			slowPointer = slowPointer.Next
+		}
+		switcher = !switcher
+		fastPointer = fastPointer.Next
+	}
+	return linkedList
+}
