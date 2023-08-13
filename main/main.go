@@ -1,7 +1,7 @@
 package main
 
 import (
-	"algorithms/arrays"
+	"algorithms/Arrays"
 	"fmt"
 )
 

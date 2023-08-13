@@ -211,3 +211,61 @@ func OptimalFreelancing(jobs []map[string]int) int {
 	}
 	return sum
 }
+
+type SpecialArray []interface{}
+
+func ProductSum(array []interface{}) int {
+	// Write your code here.
+
+	return ProductSums(array, 1)
+}
+
+func ProductSums(array []interface{}, depth int) int {
+	sum := 0
+	for _, item := range array {
+		t, ok := item.(int)
+		if ok {
+			sum += t
+		} else {
+			sum += ProductSums(item.(SpecialArray), depth+1)
+		}
+	}
+	return sum * depth
+}
+
+func BinarySearch(array []int, target int) int {
+	// Write your code here.
+	left, right := 0, len(array)-1
+
+	for left <= right {
+		midPoint := (left + right) / 2
+
+		if array[midPoint] == target {
+			return midPoint
+		} else if array[midPoint] < target {
+			left = midPoint + 1
+		} else {
+			right = midPoint - 1
+		}
+	}
+	return -1
+}
+
+func FindThreeLargestNumbers(array []int) []int {
+	// Write your code here.
+	min, mid, max := math.MinInt32, math.MinInt32, math.MinInt32
+
+	for _, num := range array {
+		if num > max {
+			min = mid
+			mid = max
+			max = num
+		} else if num > mid {
+			min = mid
+			mid = num
+		} else if num > min {
+			min = num
+		}
+	}
+	return []int{min, mid, max}
+}
