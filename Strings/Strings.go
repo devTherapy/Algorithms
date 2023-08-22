@@ -79,3 +79,17 @@ func GenerateDocument(characters string, document string) bool {
 
 	return true
 }
+
+func FirstNonRepeatingCharacter(str string) int {
+	// Write your code here.
+	umap := make(map[rune]int)
+	for _, x := range str {
+		umap[x]++
+	}
+	for i, y := range str {
+		if umap[y] == 1 {
+			return i
+		}
+	}
+	return -1
+}
