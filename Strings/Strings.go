@@ -2,6 +2,7 @@ package strings
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -92,4 +93,62 @@ func FirstNonRepeatingCharacter(str string) int {
 		}
 	}
 	return -1
+}
+
+
+func isAnagram(s string, t string) bool {
+	smap:= make(map[rune] int)
+
+	for _, x := range s {
+		smap[x]++
+	}
+
+	for _, y := range t {
+		if smap[y] == 0 {
+			return false
+		}
+		smap[y]--;
+	}
+
+	return true
+}
+
+func GroupAnagrams(words []string) [][]string {
+	// Write your code here.
+	anagramMap := make(map[string][]string)
+	for _, word := range words {
+		sortedWord := sortString(word)
+		anagramMap[sortedWord] = append(anagramMap[sortedWord], word)
+	}
+	result := make([][]string, 0)
+	for _, v := range anagramMap {
+		result = append(result, v)
+	}
+	return result
+
+}
+
+func sortString(w string) string {
+	s := strings.Split(w, "")
+	sort.Strings(s)
+	return strings.Join(s, "")
+}
+
+func GroupAnagrams2(words []string) [][] string{
+	anagramMap := make(map[string][]string)
+
+	for _, word := range words {
+		var arr = [26]int{}
+		for _, c := range word{
+			arr[c - 'a']++
+		}
+		key := fmt.Sprint(arr[:])
+		anagramMap[key] = append(anagramMap[key], word)
+	}
+
+	result := make([][]string, 0)
+	for _, v := range anagramMap{
+		result = append(result, v)
+	}
+	return result
 }

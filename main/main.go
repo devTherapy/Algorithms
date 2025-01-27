@@ -1,13 +1,18 @@
 package main
 
 import (
-	"algorithms/Arrays"
+	strings "algorithms/Strings"
 	"fmt"
 )
 
 func main() {
 
-	array := []int{-4, -1, 3, 5, 6, 8, 11}
-	ans := arrays.SortedSquaredArray(array)
-	fmt.Print(ans)
+	//res := strings.MinimumWindowSubstring("ADOBECODEBANC", "ABC")
+	res := strings.MinimumWindowSubstring2("ADOBECODEBANC", "ABC")
+	fmt.Println(res)
+}
+
+func DoStuff(arr *[]int) {
+	*arr = (*arr)[3:6]
+	// Do stuff here
 }

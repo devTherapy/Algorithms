@@ -269,3 +269,186 @@ func FindThreeLargestNumbers(array []int) []int {
 	}
 	return []int{min, mid, max}
 }
+
+func ThreeNumberSum(array []int, target int) [][]int {
+	// Write your code here.
+	list := [][]int{}
+	sort.Ints(array)
+	for i, val := range array {
+		left, right := i+1, len(array)-1
+		for left < right {
+			currentSum := val + array[left] + array[right]
+			if currentSum == target {
+				list = append(list, []int{val, array[left], array[right]})
+				left++
+				right--
+			} else if currentSum < target {
+				left++
+			} else {
+				right--
+			}
+		}
+	}
+	return list
+}
+
+func SmallestDifference(array1, array2 []int) []int {
+	// Write your code here.
+	sort.Ints(array1)
+	sort.Ints(array2)
+	left, right := 0, 0
+	smallest, current := math.MaxInt32, math.MaxInt32
+	smallestPair := []int{}
+	for left < len(array1) && right < len(array2) {
+		first, second := array1[left], array2[right]
+		if first < second {
+			current = second - first
+			left++
+		} else if second < first {
+			current = first - second
+			right++
+		} else {
+			return []int{first, second}
+		}
+		if smallest > current {
+			smallest = current
+			smallestPair = []int{first, second}
+		}
+	}
+	return smallestPair
+}
+
+func MoveElementToEnd(array []int, toMove int) []int {
+	// Write your code here.
+	left, right := 0, len(array)-1
+	for left < right {
+		for left < right && array[right] == toMove {
+			right--
+		}
+		if array[left] == toMove {
+			array[left], array[right] = array[right], array[left]
+		}
+		left++
+	}
+	return array
+}
+
+func IsMonotonic(array []int) bool {
+	// Write your code here.
+	isNonDecreasing := true
+	isNonIncreasing := true
+	for i := 1; i < len(array); i++ {
+		if array[i] < array[i-1] {
+			isNonDecreasing = false
+		}
+		if array[i] > array[i-1] {
+			isNonIncreasing = false
+		}
+	}
+	return isNonDecreasing || isNonIncreasing
+}
+
+func LongestPeak(array []int) int {
+	// Write your code here.
+
+	if len(array) <= 2 {
+		return 0
+	}
+
+	longestPeakLength := 0
+	i := 1
+	for i < len(array) {
+		isPeak := array[i-1] < array[i] && array[i] > array[i+1]
+		if !isPeak {
+			continue
+		}
+
+		leftIndex := i - 2
+		for leftIndex >= 0 && array[leftIndex] < array[leftIndex+1] {
+			leftIndex--
+		}
+
+		rightIndex := i + 2
+
+		for rightIndex <= len(array) && array[rightIndex] < array[rightIndex-1] {
+			rightIndex++
+		}
+		currentPeakLength := rightIndex - leftIndex - 1
+		longestPeakLength = int(math.Max(float64(longestPeakLength), float64(currentPeakLength)))
+		i = rightIndex
+	}
+	return longestPeakLength
+}
+
+// Solution without using division  [7, 1,, 2, 3, 4, 5, 6]
+func ArrayOfProducts(array []int) []int {
+	// Write your code here.
+	product := 1
+	//compute the left product
+	result := make([]int, len(array))
+	for i, val := range array {
+		result[i] = product
+		product = product * val
+	}
+	product = 1
+	//compute the ridht product
+	for i := len(array) - 1; i >= 0; i-- {
+		result[i] = result[i] * product
+		product = product * result[i]
+	}
+	return result
+}
+
+func ProductExceptSelf(array []int) []int {
+	// Write your code here.
+	leftProduct := make([]int, len(array))
+	rightProduct := make([]int, len(array))
+	result := make([]int, len(array))
+	//compute the left product
+	product := 1
+	for i, val := range array{
+		leftProduct[i] = product
+		product = product * val
+	}
+	//compute the right product
+	product = 1
+	for i := len(array) - 1; i >= 0; i--{
+		rightProduct[i] = product
+		product = product * array[i]
+	}
+	//compute the product except self
+	for i := range array{
+		result[i] = leftProduct[i] * rightProduct[i]
+	}
+	return result
+}
+
+func ProductExceptSelf2(array []int) []int {
+	// Write your code here.
+	zeroCount := 0
+	product := 1
+	for _, val := range array{
+		if val == 0{
+			zeroCount++
+		}else{
+			product = product * val
+		}
+	}
+	if zeroCount > 1{
+		return make([]int, len(array))		
+	}
+
+	result := make([]int, len(array))
+	for i, val := range array{
+		if zeroCount == 1{
+			if val == 0{
+				result[i] = product
+			}else{
+				result[i] = 0
+			}
+		}else{
+			result[i] = product
+	}
+}
+	return result
+}
