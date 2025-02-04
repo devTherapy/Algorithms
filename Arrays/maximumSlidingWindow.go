@@ -16,6 +16,9 @@ package arrays
 //This function works by using a queue to store the indexes of the elements in the array. We iterate through the array and add the index of the element to the queue if the element is greater than the last element in the queue. We then check if the index of the first element in the queue is less than the beginning of the new window and remove it from the queue. If the index of the current element is greater than or equal to the window size, we add the maximum value in the window to the result array.
 //
 //The logic here is that we only need to keep track of the maximum value in the window and remove any elements that are less than the current element since they will never be the maximum value in the next window.
+
+// Example:
+//   MaximumSlidingWindow([]int{1, 3, -1, -3, 5, 3, 6, 7}, 3) => [3, 3, 5, 5, 6, 7]
 func MaximumSlidingWindow(array []int, windowSize int) []int {
 	queue := []int{}
 	result := []int{}

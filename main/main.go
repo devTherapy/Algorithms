@@ -9,7 +9,8 @@ import (
 func main() {
 
 	//res := strings.MinimumWindowSubstring("ADOBECODEBANC", "ABC")
-	res := arrays.MaximumSlidingWindow([]int{1, 3, -1, -3, 5, 3, 6, 7}, 3)
+	//res := arrays.Subsets2([]int{1, 2, 3})
+	res := arrays.CombinationSum([]int{2, 3, 4, 7}, 7)
 	fmt.Println(res)
 }
 
